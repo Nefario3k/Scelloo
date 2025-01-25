@@ -1,0 +1,43 @@
+// import fonts
+@import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap");
+// import fonts end
+
+:root {
+  --primary_color: #6d5bd0;
+  --transparent: #00000000;
+
+  --bg_color: #f2f0f9;
+  --bg_color2: #8b83ba;
+  --bg_color3: #f4f2ff;
+  --bg_color4: #e6e6f2;
+  --bg_color5: #cdffcd;
+  --bg_color6: #ffe0e0;
+  --bg_color7: #ffeccc;
+
+  --border_color: #c6c2de;
+  --border_color2: #d9d5ec;
+
+  --scrim: #201a1e66;
+  --shadow_base: 0px 0px 5px 0px #00000033;
+  --shadow_base2: 0px 5px 8px 0px #00000033;
+
+  --text_light: #fff;
+  --text_dark: #25213b;
+  --text_dark2: #6e6893;
+  --text_dark3: #4a4aff;
+  --text_dark4: #007f00;
+  --text_dark5: #d30000;
+  --text_dark6: #965e00;
+
+  --text_xs: 1.2rem;
+  --text_sm: 1.4rem;
+  --text_md: 1.6rem;
+  --text_lg: 1.8rem;
+  --text_xl: 2rem;
+  --text_p: 2.4rem;
+  --text_h2: 3rem;
+  --text_h1: 3.6rem;
+
+  // modifies font sizes for the whole app
+  font-size: 62.5%;
+}

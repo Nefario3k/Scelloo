@@ -1,0 +1,37 @@
+{
+  "name": "base-template",
+  "version": "2.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "start": "nuxt start",
+    "build": "nuxt build",
+    "dev": "nuxt dev",
+    "generate": "nuxt generate",
+    "preview": "nuxt preview",
+    "postinstall": "nuxt prepare"
+  },
+  "dependencies": {
+    "@faker-js/faker": "^9.4.0",
+    "@formkit/auto-animate": "^0.8.2",
+    "@mdi/font": "^7.4.47",
+    "@pinia/nuxt": "^0.5.1",
+    "lodash": "^4.17.21",
+    "nuxt": "^3.11.2",
+    "nuxt-sanctum-auth": "^0.4.7",
+    "pinia": "^2.1.7",
+    "scriptjs": "^2.5.9",
+    "unctx": "^2.3.1",
+    "vue": "^3.4.21"
+  },
+  "devDependencies": {
+    "@nuxtjs/tailwindcss": "^6.12.0",
+    "@types/jquery": "^3.5.30",
+    "@vueuse/core": "^10.11.0",
+    "@vueuse/nuxt": "^10.10.1",
+    "sass": "^1.76.0",
+    "tailwindcss": "^3.4.3",
+    "vite-plugin-vuetify": "^2.0.3",
+    "vuetify": "^3.6.3"
+  }
+}
