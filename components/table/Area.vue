@@ -76,7 +76,12 @@
                 </p>
                 <a
                   @click.stop="$doNothing()"
-                  class="text-dark-2 text-xs hover:text-main-primary"
+                  class="text-xs hover:text-main-primary"
+                  :class="
+                    activateHighlightedDesign('email', items.email)
+                      ? activateHighlightedDesign('email', items.email)
+                      : 'text-dark-2'
+                  "
                   :href="`mailto:${items.email}`"
                   >{{ items.email }}</a
                 >

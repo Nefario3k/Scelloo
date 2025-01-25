@@ -9,7 +9,7 @@ const tableDataArray: Array<TableDataArray> = [];
 for (let i = 2; i <= 277; i++) {
   const firstName = faker.person.firstName();
   const lastName = faker.person.lastName();
-  const email = (`${firstName}.${lastName}@email.com`).toLowerCase();
+  const email = faker.internet.email().toLowerCase();
   const status = statuses[Math.floor(Math.random() * statuses.length)];
   const lastLogin = faker.date.past().toISOString().split('T')[0];
   const paymentStatus = paymentStatuses[Math.floor(Math.random() * paymentStatuses.length)];
