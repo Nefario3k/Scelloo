@@ -441,9 +441,7 @@ const formatedTableData = computed(() => {
 const activateHighlightedDesign = (type: string, value: string) => {
   const searchTerm = searchInput.value.trim().toLowerCase();
   if (
-    (!orderBy.value &&
-      searchTerm.length > 2 &&
-      value.toLowerCase().startsWith(searchTerm)) ||
+    (searchTerm.length > 2 && value.toLowerCase().startsWith(searchTerm)) ||
     (orderBy.value === type && searchTerm.length <= 2)
   ) {
     return highlightedText.value;
