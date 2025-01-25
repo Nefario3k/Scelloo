@@ -67,10 +67,10 @@
             <td class="">
               <div class="max-w-max">
                 <p class="text-sm text-dark-1 font-medium flex items-center gap-2">
-                  <span :class="`${orderBy === 'first_name' ? highlightedText : ''}`"
+                  <span :class="activateHighlightedDesign('first_name', items.first_name)"
                     ><span>{{ items.first_name }}</span>
                   </span>
-                  <span :class="`${orderBy === 'last_name' ? highlightedText : ''}`"
+                  <span :class="activateHighlightedDesign('last_name', items.last_name)"
                     ><span>{{ items.last_name }}</span>
                   </span>
                 </p>
@@ -94,7 +94,13 @@
                 />
                 <p class="text-dark-2 text-xs font-medium flex items-center gap-3">
                   <span>Last login:</span>
-                  <span :class="`${orderBy === 'last_login' ? highlightedText : ''}`"
+                  <span
+                    :class="
+                      activateHighlightedDesign(
+                        'last_login',
+                        $formatDate(items.last_login)
+                      )
+                    "
                     ><span>{{ $formatDate(items.last_login) }}</span>
                   </span>
                 </p>
@@ -121,7 +127,13 @@
                     }}
                     on
                   </span>
-                  <span :class="`${orderBy === 'due_date' ? highlightedText : ''}`"
+                  <span
+                    :class="
+                      activateHighlightedDesign(
+                        'due_date',
+                        $formatDate(items.payment.due_date)
+                      )
+                    "
                     ><span>{{ $formatDate(items.payment.due_date) }}</span>
                   </span>
                 </p>
@@ -378,7 +390,7 @@ const upperBoundary = computed(() => {
 
 const filteredTableData = computed(() => {
   let filteredArray = $deepClone(mainDataArray.value);
-  const searchTerm = searchInput.value.toLowerCase();
+  const searchTerm = searchInput.value.trim().toLowerCase();
 
   // Unified search function, makes life easy when broken
   const matchesSearch = (item: TableDataArray) => {
@@ -426,6 +438,19 @@ const formatedTableData = computed(() => {
   );
 });
 
+const activateHighlightedDesign = (type: string, value: string) => {
+  const searchTerm = searchInput.value.trim().toLowerCase();
+  if (
+    (orderBy.value &&
+      searchTerm.length > 2 &&
+      value.toLowerCase().startsWith(searchTerm)) ||
+    (orderBy.value === type && searchTerm.length <= 2)
+  ) {
+    return highlightedText.value;
+  }
+  return "";
+};
+
 const setCurrentActive = (id: number) => {
   // find item via id
   const arr = $getAppResource("tableDataArray");
@@ -437,6 +462,7 @@ const setCurrentActive = (id: number) => {
     isCurrentActive.value = id;
   }
 };
+
 const getStatusColors = (val: string) => {
   switch (val.toLocaleLowerCase()) {
     case "active":
