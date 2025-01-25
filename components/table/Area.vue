@@ -38,7 +38,7 @@
           <tr
             v-auto-animate
             @click="setCurrentActive(items.id)"
-            :class="{ active: isCurrentActive === items.id }"
+            :class="{ active: isCurrentActive === items.id || tdCheck(items.id) }"
             class="cursor-pointer"
           >
             <!-- toggle -->
@@ -66,8 +66,13 @@
             <!-- name and email -->
             <td class="">
               <div class="max-w-max">
-                <p class="text-sm text-dark-1 font-medium">
-                  {{ items.first_name + " " + items.last_name }}
+                <p class="text-sm text-dark-1 font-medium flex items-center gap-2">
+                  <span :class="`${orderBy === 'first_name' ? highlightedText : ''}`"
+                    ><span>{{ items.first_name }}</span>
+                  </span>
+                  <span :class="`${orderBy === 'last_name' ? highlightedText : ''}`"
+                    ><span>{{ items.last_name }}</span>
+                  </span>
                 </p>
                 <a
                   @click.stop="$doNothing()"
@@ -87,8 +92,11 @@
                   :bg-color="getStatusColors(items.status).bgColor"
                   :ball-color="getStatusColors(items.status).ballColor"
                 />
-                <p class="text-dark-2 text-xs font-medium">
-                  Last login: {{ $formatDate(items.last_login) }}
+                <p class="text-dark-2 text-xs font-medium flex items-center gap-3">
+                  <span>Last login:</span>
+                  <span :class="`${orderBy === 'last_login' ? highlightedText : ''}`"
+                    ><span>{{ $formatDate(items.last_login) }}</span>
+                  </span>
                 </p>
               </div>
             </td>
@@ -102,15 +110,20 @@
                   :bg-color="getStatusColors(items.payment.status).bgColor"
                   :ball-color="getStatusColors(items.payment.status).ballColor"
                 />
-                <p class="text-dark-1 text-xs font-medium">
-                  {{
-                    items.payment.status.toLowerCase() === "paid"
-                      ? "Paid"
-                      : items.payment.status.toLowerCase() === "overdue"
-                      ? "Dued"
-                      : "Dues"
-                  }}
-                  on {{ $formatDate(items.payment.due_date) }}
+                <p class="text-dark-1 text-xs font-medium flex items-center gap-3">
+                  <span>
+                    {{
+                      items.payment.status.toLowerCase() === "paid"
+                        ? "Paid"
+                        : items.payment.status.toLowerCase() === "overdue"
+                        ? "Dued"
+                        : "Dues"
+                    }}
+                    on
+                  </span>
+                  <span :class="`${orderBy === 'due_date' ? highlightedText : ''}`"
+                    ><span>{{ $formatDate(items.payment.due_date) }}</span>
+                  </span>
                 </p>
               </div>
             </td>
@@ -336,6 +349,9 @@ const props = defineProps({
   },
 });
 // const [parent] = useAutoAnimate()
+const highlightedText = ref(
+  "flex_center px-3 bg-main-primary text-dark rounded-lg min-h-[2.5rem]"
+);
 const { $getAppResource, $deepClone, $formatDate } = useNuxtApp();
 const appResourceStore = useAppResourceStore();
 const mainDataArray = computed(() => appResourceStore.tableDataArray);
@@ -468,7 +484,7 @@ const tdCheck = (id: number) => {
 const thIntermediateCheck = () => {
   if (
     selectedItems.value.length &&
-    formatedTableData.value.length.length &&
+    formatedTableData.value.length &&
     selectedItems.value.length !== formatedTableData.value.length
   )
     return true;
@@ -544,6 +560,7 @@ const deleteUser = (id: number) => {
   if (index !== -1) {
     starterArr.splice(index, 1);
     currentNavigationName.value = "list-reverse";
+    selectedItems.value = selectedItems.value.filter((el: number) => el !== id);
     appResourceStore.tableDataArray = $deepClone(starterArr);
     calculatePagination();
   }
